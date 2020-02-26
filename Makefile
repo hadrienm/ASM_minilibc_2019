@@ -7,7 +7,7 @@
 
 NAME	= libasm.so
 
-CC	= gcc
+AS	= nasm
 
 RM	= rm -f
 
@@ -16,7 +16,8 @@ SRCS	= ./strlen.s \
 			./memset.s \
 			./memcpy.s \
 			./strcmp.s \
-			./memmove.s
+			./memmove.s \
+			./rindex.s 
 
 OBJS	= $(SRCS:.s=.o)
 
@@ -27,10 +28,7 @@ LDFLAGS += -shared
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	 $(CC) $(LDFLAGS) $(OBJS) -o $@
-
-%.o: %.s
-	 nasm $(ASFLAGS) $< -o $@
+	 ld $(LDFLAGS) $(OBJS) -o $@
 
 clean:
 	$(RM) $(OBJS)
