@@ -6,8 +6,6 @@ strchr:
     mov rbp, rsp                       ; (==enter)
 
     mov r10, 0                         ; i = 0
-    cmp rdi, 0                         ; if (str == NULL)
-    je .notfound                            ; return 0;
 
 .loop:                                 ;while 
     cmp byte [rdi + r10], 0            ;str[i] != '\0'

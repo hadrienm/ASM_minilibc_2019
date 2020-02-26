@@ -6,11 +6,6 @@ strcmp:
     mov rbp, rsp                    ; (==enter)
 
     mov rax, 0                      ; result = 0
-    cmp rdi, 0                      ; if (str1 == NULL)
-    je .initfirst
-    cmp rsi, 0                      ; if (str2 == NULL)
-    je .second
-
     mov r9d, 0                      ; char a = NULL
     mov r10d, 0                     ; char b = NULL
 
@@ -30,16 +25,18 @@ strcmp:
 
 .first:
     mov rax, -1                     ; return -1
-    jmp .end                         ; end
-
-.initfirst:
-    cmp rsi, 0                      ; if (str2 == NULL)
-    je .end                         ; return 0
-    mov rax, -1                     ; return -1
+    cmp r10b, 0                     ; if (str2 == NULL)
+    je .both                        ; both
     jmp .end                        ; end
 
 .second:
     mov rax, 1                      ; return 1
+    mov r9b, 0                      ; if (str1, NULL)
+    je .both                        ; both
+    jmp .end                        ; end
+
+.both:
+    mov rax, 0                      ; return 0
     jmp .end                        ; end
 
 .end:
