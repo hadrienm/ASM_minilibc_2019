@@ -19,9 +19,7 @@ strncmp:
     jl .first                       ; return -1
     jg .second                      ; return 1
     cmp r9b, 0                      ; if (str1 == NULL)
-    je .first                       ; return -1
-    cmp r10b, 0                     ; if (str2 == NULL)
-    je .second                      ; return 1
+    je .end                         ; return
     inc rdi                         ; str1++
     inc rsi                         ; str2++
     inc r8d                         ; ++index
@@ -29,18 +27,10 @@ strncmp:
 
 .first:
     mov rax, -1                     ; return -1
-    cmp r10b, 0                     ; if (str2 == NULL)
-    je .both                        ; both
     jmp .end                        ; end
 
 .second:
     mov rax, 1                      ; return 1
-    mov r9b, 0                      ; if (str1, NULL)
-    je .both                        ; both
-    jmp .end                        ; end
-
-.both:
-    mov rax, 0                      ; return 0
     jmp .end                        ; end
 
 .end:
