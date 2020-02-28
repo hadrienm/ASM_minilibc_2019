@@ -1,40 +1,45 @@
 BITS 64
-global stpbrk
+global strpbrk
+
+;RDI, RSI
 
 strpbrk:
     push rbp                        ; Prologue
     mov rbp, rsp                    ; (==enter)
     mov rax, 0                      ; result = NULL
     mov r8d, 0                      ; int tmp_index = 0
-    mov r9d, 0                      ; int i = 0
+    mov r9d, 0                      ; int i = 1
     mov r10b, 0                     ; char tmp = NULL
 
 .loop:
-    mov r9d, 0                      ; i = 0
-    mov r10b, 0                     ; tmp = NULL
-    cmp rsi, 0                      ; if (charset == NULL)
-    je .end                         ; return NULL
-    jmp .check                      ; double for
+    mov r8d, 0                      ; tmp_index = 0
+    cmp byte [rdi], 0               ; s[i] == NULL
+    je .setreturn
+    jmp .secondloop                 ; double for
+    
+.secondloop:
+    mov r10b, [rsi + r8]            ; tmp = charset[i]
+    cmp r10b, 0                     ; if (tmp == NULL)
+    je .inc
+    cmp [rdi], r10b                 ; if (s[i] == tmp)
+    je .setreturn
+    inc r8d                         ; ++tmp_index
+    jmp .secondloop
 
-.check:
-    mov r10b, [rdi + r9]            ; tmp = s[i]
-    cmp r10b, [rsi]                 ; if (tmp == charset[i])
-    je .incs
-    cmp r10b, 0                     ; if (s[i] == NULL)
-    je .loop
-    inc rsi                         ; ++charset
+.inc:
+    inc rdi                         ; ++s
+    inc r9d                         ; ++i
     jmp .loop
 
-.incs:
-    cmp r8d, r9d                    ; if (tmp_index == i)
-    je .setreturn                   ; return s
-    inc r8d                         ; ++tmp_index
-    inc rdi                         ; ++s
-    jmp .incs
+.setnull:
+    mov rax, 0                      ; return NULL
+    jmp .end
 
 .setreturn:
-    mov rax, rdi                    ; result = s
-    jmp .end                        ; return s
+    cmp byte [rdi], 0
+    je .setnull
+    mov rax, rdi                    ; result = i
+    jmp .end
 
 .end:
     leave
