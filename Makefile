@@ -20,7 +20,8 @@ SRCS	= ./strlen.s \
 			./rindex.s \
 			./strncmp.s \
 			./strcasecmp.s \
-			./strpbrk.s 
+			./strpbrk.s \
+			./strcspn.s
 
 OBJS	= $(SRCS:.s=.o)
 

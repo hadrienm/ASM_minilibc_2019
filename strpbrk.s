@@ -1,5 +1,5 @@
 BITS 64
-global strcasecmp
+global stpbrk
 
 strpbrk:
     push rbp                        ; Prologue
