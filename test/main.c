@@ -230,6 +230,36 @@ void rindex_test()
     }
 }
 
+void strpbrk_test()
+{
+    char *test = strpbrk("bon oeuf", "no");
+
+    printf("\nTest on strpbrk function:\n");
+    if (strcmp(test, "on oeuf") == 0) {
+        printf("\tstrpbrk(\"bon oeuf\", \"no\"): \033[0;32mSuccessful test\033[0;37m\n");
+    } else {
+        printf("\tstrpbrk(\"bon oeuf\", \"no\"): \033[0;31mFail test => got : [%s], excepted : on oeuf\033[0;37m\n", test);
+    }
+    test = strpbrk("bon oeuf", " ");
+    if (strcmp(test, " oeuf") == 0) {
+        printf("\tstrpbrk(\"bon oeuf\", \" \"): \033[0;32mSuccessful test\033[0;37m\n");
+    } else {
+        printf("\tstrpbrk(\"bon oeuf\", \" \"): \033[0;31mFail test => got : [%s], excepted : [ oeuf]\033[0;37m\n", test);
+    }
+    test = strpbrk("bon oeuf", "f");
+    if (strcmp(test, "f") == 0) {
+        printf("\tstrpbrk(\"bon oeuf\", \"f\"): \033[0;32mSuccessful test\033[0;37m\n");
+    } else {
+        printf("\tstrpbrk(\"bon oeuf\", \"f\"): \033[0;31mFail test => got : [%s], excepted : f\033[0;37m\n", test);
+    }
+    test = strpbrk("bon oeuf", "x");
+    if (test == NULL) {
+        printf("\tstrpbrk(\"bon oeuf\", \"x\"): \033[0;32mSuccessful test\033[0;37m\n");
+    } else {
+        printf("\tstrpbrk(\"bon oeuf\", \"x\"): \033[0;31mFail test => got : [%s], excepted : null\033[0;37m\n", test);
+    }
+}
+
 int main(void)
 {
     strcmp_test();
@@ -241,12 +271,7 @@ int main(void)
     memcpy_test();
     memmove_test();
     rindex_test();
-    printf("strpbrk(\"bon oeuf\", \"no\") = %s\n", strpbrk("bon oeuf", "no"));
-    printf("strpbrk(\"bon oeuf\", \" \") = %s\n", strpbrk("bon oeuf", " "));
-    printf("strpbrk(\"bon oeuf\", \"f\") = %s\n", strpbrk("bon oeuf", "f"));
-    printf("strpbrk(\"bon oeuf\", \"x\") = %s\n", strpbrk("bon oeuf", "x"));
-    printf("strpbrk(\"bon oeuf\", \"b\") = %s\n", strpbrk("bon oeuf", "b"));
-    printf("strpbrk(\"bon oeuf\", \"ob\") = %s\n", strpbrk("bon oeuf", "ob"));
+    strpbrk_test();
     printf("strcspn(\"bon oeuf\", \"x\") = %d\n", strcspn("bon oeuf", "x"));
     printf("strcspn(\"bon oeuf\", \"u\") = %d\n", strcspn("bon oeuf", "u"));
     printf("strcspn(\"bon oeuf\", \" \") = %d\n", strcspn("bon oeuf", " "));
