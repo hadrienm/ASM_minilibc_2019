@@ -11,18 +11,7 @@ AS	= nasm
 
 RM	= rm -f
 
-SRCS	= ./strlen.s \
-			./strchr.s \
-			./memset.s \
-			./memcpy.s \
-			./strcmp.s \
-			./memmove.s \
-			./rindex.s \
-			./strncmp.s \
-			./strcasecmp.s \
-			./strpbrk.s \
-			./strcspn.s \
-			./strstr.s 
+SRCS	= ./strncasecmp.s
 
 OBJS	= $(SRCS:.s=.o)
 
@@ -42,5 +31,8 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
+
+compil: all
+	gcc main.c -L -lasm -fno-builtin -o test
 
 .PHONY: all clean fclean re

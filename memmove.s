@@ -16,8 +16,8 @@ memmove:
 
 .loop:                              ; while
     cmp rdx, r10                    ; if (i == len)
-    je .end                        ; return dst
-    add rdi, [rsi + r10]             ; newstr += src[i]
+    je .end                         ; return dst
+    add rdi, [rsi + r10]            ; newstr += src[i]
     inc r10                         ; ++i
     jmp .loop
 

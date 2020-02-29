@@ -6,6 +6,7 @@ strcasecmp:
     mov rbp, rsp                    ; (==enter)
 
     mov rax, 0                      ; result = 0
+    mov r8d, 0                      ; int index = 0
     mov r9d, 0                      ; char a = NULL
     mov r10d, 0                     ; char b = NULL
 
@@ -17,8 +18,11 @@ strcasecmp:
     jg .second                      ; return 1
     cmp r9b, 0                      ; if (str1 == NULL)
     je .end                         ; return 0
+    cmp r8d, edx                    ; if (index == n)
+    je .end
     inc rdi                         ; str1++
     inc rsi                         ; str2++
+    inc r8d                         ; ++index
     jmp .loop
 
 .first:
