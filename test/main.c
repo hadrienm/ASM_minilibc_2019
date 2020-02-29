@@ -218,6 +218,18 @@ void memmove_test()
     }
 }
 
+void rindex_test()
+{
+    char *test = rindex("42547\0", '5');
+
+    printf("\nTest on rindex function:\n");
+    if (strcmp(test, "547") == 0) {
+        printf("\trindex(\"42547\\0\", '5'): \033[0;32mSuccessful test\033[0;37m\n");
+    } else {
+        printf("\trindex(\"42547\\0\", '5'): \033[0;31mFail test => got : [%s], excepted : 547\033[0;37m\n", test);
+    }
+}
+
 int main(void)
 {
     strcmp_test();
@@ -228,7 +240,7 @@ int main(void)
     memset_test();
     memcpy_test();
     memmove_test();
-    printf("rindex(\"42547\\0\", '5') = %s\n", rindex("42547\0", '5'));
+    rindex_test();
     printf("strpbrk(\"bon oeuf\", \"no\") = %s\n", strpbrk("bon oeuf", "no"));
     printf("strpbrk(\"bon oeuf\", \" \") = %s\n", strpbrk("bon oeuf", " "));
     printf("strpbrk(\"bon oeuf\", \"f\") = %s\n", strpbrk("bon oeuf", "f"));
