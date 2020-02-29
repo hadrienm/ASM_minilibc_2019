@@ -260,6 +260,30 @@ void strpbrk_test()
     }
 }
 
+void strcspn_test()
+{
+    int size = strcspn("bon oeuf", "x");
+
+    printf("\nTest on strcspn function:\n");
+    if (size == 8) {
+        printf("\tstrcspn(\"bon oeuf\", \"x\"): \033[0;32mSuccessful test\033[0;37m\n");
+    } else {
+        printf("\tstrcspn(\"bon oeuf\", \"x\"): \033[0;31mFail test => got : [%d], excepted : 8\033[0;37m\n", size);
+    }
+    size = strcspn("bon oeuf", "u");
+    if (size == 6) {
+        printf("\tstrcspn(\"bon oeuf\", \"u\"): \033[0;32mSuccessful test\033[0;37m\n");
+    } else {
+        printf("\tstrcspn(\"bon oeuf\", \"u\"): \033[0;31mFail test => got : [%d], excepted : 6\033[0;37m\n", size);
+    }
+    size = strcspn("bon oeuf", " ");
+    if (size == 3) {
+        printf("\tstrcspn(\"bon oeuf\", \" \"): \033[0;32mSuccessful test\033[0;37m\n");
+    } else {
+        printf("\tstrcspn(\"bon oeuf\", \" \"): \033[0;31mFail test => got : [%d], excepted : 3\033[0;37m\n", size);
+    }
+}
+
 int main(void)
 {
     strcmp_test();
@@ -272,11 +296,7 @@ int main(void)
     memmove_test();
     rindex_test();
     strpbrk_test();
-    printf("strcspn(\"bon oeuf\", \"x\") = %d\n", strcspn("bon oeuf", "x"));
-    printf("strcspn(\"bon oeuf\", \"u\") = %d\n", strcspn("bon oeuf", "u"));
-    printf("strcspn(\"bon oeuf\", \" \") = %d\n", strcspn("bon oeuf", " "));
-    printf("strcspn(\"bon oeuf\", \"b\") = %d\n", strcspn("bon oeuf", "b"));
-    printf("strcspn(\"bon oeuf\", \"o\") = %d\n", strcspn("bon oeuf", "o"));
+    strcspn_test();
     printf("strstr(\"bon oeuf\", \"bo\") = %s\n", strstr("bon oeuf", "bo"));
     printf("strstr(\"bon oeuf\", \"n o\") = %s\n", strstr("bon oeuf", "n o"));
     printf("strstr(\"bon oeuf\", \"oof\") = %s\n", strstr("bon oeuf", "oof"));
