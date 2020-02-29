@@ -156,32 +156,78 @@ void memset_test()
     free(ptr);
 }
 
-int main(void)
+void memcpy_test()
+{
+    void *ptr = memcpy("coucou", "toi", 0);
+
+    printf("\nTest on memcpy function:\n");
+    if (strcmp(ptr, "coucou") == 0) {
+        printf("\tmemcpy(\"coucou\", \"toi\", 0): \033[0;32mSuccessful test\033[0;37m\n");
+    } else {
+        printf("\tmemcpy(\"coucou\", \"toi\", 0): \033[0;31mFail test => got : [%s], excepted : coucou\033[0;37m\n", ptr);
+    }
+    ptr = calloc(7, sizeof(int));
+    ptr = memcpy(ptr, "je t'aime", 7);
+    if (strcmp(ptr, "je t'ai") == 0) {
+        printf("\tmemcpy(\"\", \"je t'aime\", 7): \033[0;32mSuccessful test\033[0;37m\n");
+    } else {
+        printf("\tmemcpy(\"\", \"je t'aime\", 7): \033[0;31mFail test => got : [%s], excepted : je t'ai\033[0;37m\n", ptr);
+    }
+}
+
+void memmove_test()
 {
     void *ptr = calloc(7, sizeof(int));
     void *ptr2 = calloc(7, sizeof(int));
 
+    printf("\nTest on memmove function:\n");
+    memset(ptr, 'e', 7);
+    memset(ptr2, 'f', 7);
+    memmove(ptr2, ptr, 0);
+
+    if (strcmp(ptr2, "fffffff") == 0) {
+        printf("\tmemmove(ptr, ptr2, 0): \033[0;32mSuccessful test\033[0;37m\n");
+    } else {
+        printf("\tmemmove(ptr, ptr2, 0): \033[0;31mFail test => got : [%s], excepted : fffffff\033[0;37m\n", ptr2);
+    }
+    memmove(ptr2, ptr, 7);
+    if (strcmp(ptr2, "eeeeeee") == 0) {
+        printf("\tmemmove(ptr, ptr2, 7): \033[0;32mSuccessful test\033[0;37m\n");
+    } else {
+        printf("\tmemmove(ptr, ptr2, 7): \033[0;31mFail test => got : [%s], excepted : eeeeeee\033[0;37m\n", ptr2);
+    }
+    ((char *)(ptr))[0] = 'p';
+    ((char *)(ptr))[4] = 'o';
+    memmove(ptr, ptr, 0);
+    if (strcmp(ptr, "peeeoee") == 0) {
+        printf("\tmemmove(ptr, ptr, 0): \033[0;32mSuccessful test\033[0;37m\n");
+    } else {
+        printf("\tmemmove(ptr, ptr, 0): \033[0;31mFail test => got : [%s], excepted : peeeoee\033[0;37m\n", ptr);
+    }
+    memmove(ptr + 2, ptr, 5);
+    if (strcmp(ptr + 2, "peeeo") == 0) {
+        printf("\tmemmove(ptr + 2, ptr, 5): \033[0;32mSuccessful test\033[0;37m\n");
+    } else {
+        printf("\tmemmove(ptr + 2, ptr2, 7): \033[0;31mFail test => got : [%s], excepted : peeeo\033[0;37m\n", ptr + 2);
+    }
+    memmove(ptr, ptr, 0);
+    if (strcmp(ptr, "pepeeeo") == 0) {
+        printf("\tmemmove(ptr, ptr, 0): \033[0;32mSuccessful test\033[0;37m\n");
+    } else {
+        printf("\tmemmove(ptr, ptr, 0): \033[0;31mFail test => got : [%s], excepted : pepeeeo\033[0;37m\n", ptr);
+    }
+}
+
+int main(void)
+{
     strcmp_test();
     strncmp_test();
     strcasecmp_test();
     strlen_test();
     strchr_test();
     memset_test();
-    free(ptr);
-    free(ptr2);
-    ptr = calloc(7, sizeof(int));
-    ptr2 = calloc(7, sizeof(int));
-    printf("\nmemcpy(coucou, toi, 0) = %s\n", memcpy("coucou", "toi", 0));
-    printf("memcpy(ptr, ptr2, 7) = %s\n", memcpy(ptr, "je t'aime", 7));
-    printf("\nmemset(ptr, 'f', 7) = %s\n", memset(ptr, 'e', 7));
-    printf("memset(ptr, 'f', 7) = %s\n", memset(ptr2, 'f', 7));
-    printf("\nmemmove(ptr, ptr2, 0) = %s\n", memmove(ptr2, ptr, 0));
-    printf("memmove(ptr, ptr2, 7) = %s\n", memmove(ptr2, ptr, 7));
-    ((char *)(ptr))[0] = 'p';
-    ((char *)(ptr))[4] = 'o';
-    printf("\nmemmove(ptr, ptr, 0) = %s\n", memmove(ptr, ptr, 0));
-    printf("memmove(ptr+2, ptr, 5) = %s\n", memmove(ptr + 2, ptr, 5));
-    printf("memmove(ptr, ptr, 0) = %s\n", memmove(ptr, ptr, 0));
+    memcpy_test();
+    memmove_test();
     printf("rindex(\"42547\\0\", '5') = %s\n", rindex("42547\0", '5'));
     printf("strpbrk(\"bon oeuf\", \"no\") = %s\n", strpbrk("bon oeuf", "no"));
     printf("strpbrk(\"bon oeuf\", \" \") = %s\n", strpbrk("bon oeuf", " "));
