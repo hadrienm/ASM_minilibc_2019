@@ -59,6 +59,36 @@ void strncmp_test()
     }
 }
 
+void strcasecmp_test()
+{
+    int cmp = strcasecmp("cni\0", "dNi\0");
+
+    printf("\nTest on strcasecmp function: \n");
+    if (cmp == -1) {
+        printf("\tstrcasecmp(cni, dNi): \033[0;32mSuccessful test\033[0;37m\n");
+    } else {
+        printf("\tstrcasecmp(cni, dNi): \033[0;31mFail test => got : %d, excepted : -1\033[0;37m\n", cmp);
+    }
+    cmp = strcasecmp("cni\0", "eNi\0");
+    if (cmp == -1) {
+        printf("\tstrcasecmp(cni, eNi): \033[0;32mSuccessful test\033[0;37m\n");
+    } else {
+        printf("\tstrcasecmp(cni, eNi): \033[0;31mFail test => got : %d, excepted : -1\033[0;37m\n", cmp);
+    }
+    cmp = strcasecmp("enI\0", "enI\0");
+    if (cmp == 0) {
+        printf("\tstrcasecmp(enI, enI): \033[0;32mSuccessful test\033[0;37m\n");
+    } else {
+        printf("\tstrcasecmp(enI, enI): \033[0;31mFail test => got : %d, excepted : 0\033[0;37m\n", cmp);
+    }
+    cmp = strcasecmp("enI\0", "eNi\0");
+    if (cmp == 0) {
+        printf("\tstrcasecmp(enI, eNi): \033[0;32mSuccessful test\033[0;37m\n");
+    } else {
+        printf("\tstrcasecmp(enI, eNi): \033[0;31mFail test => got : %d, excepted : 0\033[0;37m\n", cmp);
+    }
+}
+
 void strlen_test()
 {
     int size = 0;
@@ -133,6 +163,7 @@ int main(void)
 
     strcmp_test();
     strncmp_test();
+    strcasecmp_test();
     strlen_test();
     strchr_test();
     memset_test();
@@ -140,11 +171,7 @@ int main(void)
     free(ptr2);
     ptr = calloc(7, sizeof(int));
     ptr2 = calloc(7, sizeof(int));
-    printf("strcasecmp(cni, dNi) = %d\n", strcasecmp("cni\0", "dNi\0"));
-    printf("strcasecmp(cni, eNi) = %d\n", strcasecmp("cni\0", "eNi\0"));
-    printf("strcasecmp(enI, enI) = %d\n", strcasecmp("enI\0", "enI\0"));
     printf("\nmemcpy(coucou, toi, 0) = %s\n", memcpy("coucou", "toi", 0));
-    printf("strcasecmp(enI, cNi) = %d\n", strcasecmp("enI\0", "enI\0"));
     printf("memcpy(ptr, ptr2, 7) = %s\n", memcpy(ptr, "je t'aime", 7));
     printf("\nmemset(ptr, 'f', 7) = %s\n", memset(ptr, 'e', 7));
     printf("memset(ptr, 'f', 7) = %s\n", memset(ptr2, 'f', 7));
