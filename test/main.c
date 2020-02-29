@@ -11,11 +11,35 @@
 
 char *strstr(const char *__haystack, const char *__needle);
 
+void strcmp_test()
+{
+    int cmp = strcmp("abc\0", "ab\0");
+
+    printf("Test on strcmp function: \n");
+    if (cmp == 1) {
+        printf("\tstrcmp(\"abc\\0\", \"ab\\0\"): \033[0;32mSuccessful test\033[0;37m\n");
+    } else {
+        printf("\tstrcmp(\"abc\", \"ab\"): \033[0;31mFail test => got : %d, excepted : 1\033[0;37m\n", cmp);
+    }
+    cmp = strcmp("ab\0", "abc\0");
+    if (cmp == -1) {
+        printf("\tstrcmp(\"ab\\0\", \"abc\\0\"): \033[0;32mSuccessful test\033[0;37m\n");
+    } else {
+        printf("\tstrcmp(\"ab\\0\", \"abc\\0\"): \033[0;31mFail test => got : %d, excepted : -1\033[0;37m\n", cmp);
+    }
+    cmp = strcmp("Abc\0", "abc\0");
+    if (cmp == -1) {
+        printf("\tstrcmp(\"Abc\\0\", \"abc\\0\"): \033[0;32mSuccessful test\033[0;37m\n");
+    } else {
+        printf("\tstrcmp(\"Abc\\0\", \"abc\\0\"): \033[0;31mFail test => got : %d, excepted : -1\033[0;37m\n", cmp);
+    }
+}
+
 void strlen_test()
 {
     int size = 0;
 
-    printf("Test on strlen function: \n");
+    printf("\nTest on strlen function: \n");
     size = strlen("oeuf");
     if (size == 4)
         printf("\tstrlen(\"oeuf\") : \033[0;32mSuccessful test\033[0;37m\n");
@@ -83,6 +107,7 @@ int main(void)
     void *ptr = calloc(7, sizeof(int));
     void *ptr2 = calloc(7, sizeof(int));
 
+    strcmp_test();
     strlen_test();
     strchr_test();
     memset_test();
@@ -90,10 +115,6 @@ int main(void)
     free(ptr2);
     ptr = calloc(7, sizeof(int));
     ptr2 = calloc(7, sizeof(int));
-    printf("strcmp(\"abc\\0\", \"ab\\0\") = %d\n", strcmp("abc\0", "ab\0"));
-    printf("strcmp(\"ab\\0\", \"abc\\0\") = %d\n", strcmp("ab\0", "abc\0"));
-    printf("strcmp(\"Abc\\0\", \"abc\\0\") = %d\n", strcmp("Abc\0", "abc\0"));
-    printf("strcmp(ptr, ptr2) = %d\n", strcmp(ptr, ptr2));
     printf("strncmp(abc, ab, 2) = %d\n", strncmp("abc\0", "ab\0", 2));
     printf("strncmp(abc, ab, 0) = %d\n", strncmp("abc\0", "ab\0", 0));
     printf("strncmp(abc, ab, 0) = %d\n", strncmp("ab\0", "abc\0", 3));
