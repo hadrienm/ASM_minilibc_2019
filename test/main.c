@@ -284,6 +284,30 @@ void strcspn_test()
     }
 }
 
+void strstr_test()
+{
+    char *test = strstr("bon oeuf", "bo");
+
+    printf("\nTest on strstr function:\n");
+    if (strcmp(test, "bon oeuf") == 0) {
+        printf("\tstrstr(\"bon oeuf\", \"bo\"): \033[0;32mSuccessful test\033[0;37m\n");
+    } else {
+        printf("\tstrstr(\"bon oeuf\", \"bo\"): \033[0;31mFail test => got : [%s], excepted : bon oeuf\033[0;37m\n", test);
+    }
+    test = strstr("bon oeuf", "n o");
+    if (strcmp(test, "n oeuf") == 0) {
+        printf("\tstrstr(\"bon oeuf\", \"n o\"): \033[0;32mSuccessful test\033[0;37m\n");
+    } else {
+        printf("\tstrstr(\"bon oeuf\", \"n o\"): \033[0;31mFail test => got : [%s], excepted : n oeuf\033[0;37m\n", test);
+    }
+    test = strstr("bon oeuf", "oof");
+    if (test == NULL) {
+        printf("\tstrstr(\"bon oeuf\", \"oof\"): \033[0;32mSuccessful test\033[0;37m\n");
+    } else {
+        printf("\tstrstr(\"bon oeuf\", \"oof\"): \033[0;31mFail test => got : [%s], excepted : null\033[0;37m\n", test);
+    }
+}
+
 int main(void)
 {
     strcmp_test();
@@ -297,7 +321,5 @@ int main(void)
     rindex_test();
     strpbrk_test();
     strcspn_test();
-    printf("strstr(\"bon oeuf\", \"bo\") = %s\n", strstr("bon oeuf", "bo"));
-    printf("strstr(\"bon oeuf\", \"n o\") = %s\n", strstr("bon oeuf", "n o"));
-    printf("strstr(\"bon oeuf\", \"oof\") = %s\n", strstr("bon oeuf", "oof"));
+    strstr_test();
 }
