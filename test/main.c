@@ -35,6 +35,30 @@ void strcmp_test()
     }
 }
 
+void strncmp_test()
+{
+    int cmp = strncmp("abc\0", "ab\0", 2);
+
+    printf("\nTest on strncmp function: \n");
+    if (cmp == 0) {
+        printf("\tstrncmp(abc, ab, 2): \033[0;32mSuccessful test\033[0;37m\n");
+    } else {
+        printf("\tstrncmp(abc, ab, 2): \033[0;31mFail test => got : %d, excepted : 0\033[0;37m\n", cmp);
+    }
+    cmp = strncmp("abc\0", "ab\0", 0);
+    if (cmp == 0) {
+        printf("\tstrncmp(abc, ab, 0): \033[0;32mSuccessful test\033[0;37m\n");
+    } else {
+        printf("\tstrncmp(abc, ab, 0): \033[0;31mFail test => got : %d, excepted : 0\033[0;37m\n", cmp);
+    }
+    cmp =  strncmp("ab\0", "abc\0", 3);
+    if (cmp == -1) {
+        printf("\tstrncmp(abc, ab, 3): \033[0;32mSuccessful test\033[0;37m\n");
+    } else {
+        printf("\tstrncmp(abc, ab, 3): \033[0;31mFail test => got : %d, excepted : -1\033[0;37m\n", cmp);
+    }
+}
+
 void strlen_test()
 {
     int size = 0;
@@ -108,6 +132,7 @@ int main(void)
     void *ptr2 = calloc(7, sizeof(int));
 
     strcmp_test();
+    strncmp_test();
     strlen_test();
     strchr_test();
     memset_test();
@@ -115,9 +140,6 @@ int main(void)
     free(ptr2);
     ptr = calloc(7, sizeof(int));
     ptr2 = calloc(7, sizeof(int));
-    printf("strncmp(abc, ab, 2) = %d\n", strncmp("abc\0", "ab\0", 2));
-    printf("strncmp(abc, ab, 0) = %d\n", strncmp("abc\0", "ab\0", 0));
-    printf("strncmp(abc, ab, 0) = %d\n", strncmp("ab\0", "abc\0", 3));
     printf("strcasecmp(cni, dNi) = %d\n", strcasecmp("cni\0", "dNi\0"));
     printf("strcasecmp(cni, eNi) = %d\n", strcasecmp("cni\0", "eNi\0"));
     printf("strcasecmp(enI, enI) = %d\n", strcasecmp("enI\0", "enI\0"));
