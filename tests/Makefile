@@ -37,7 +37,7 @@ $(NAME): $(OBJS)
 	 gcc main.c -L -lasm -fno-builtin -o unit_tests
 
 run:		$(NAME)
-			./unit_tests
+		LD_PRELOAD=./libasm.so ./unit_tests
 
 clean:
 	$(RM) $(OBJS)
